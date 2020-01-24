@@ -1,5 +1,9 @@
 const express = require('express')
 const pg = require('pg')
+const { rateLimiter } = require('./rateLimiter')
+
+// dotenv for environment vars
+require('dotenv').config()
 
 const app = express()
 // configs come from standard PostgreSQL env vars

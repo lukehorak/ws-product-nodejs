@@ -1,6 +1,9 @@
+const requestIp = require('request-ip');
+
 const rateLimiter = (req, res, next) => {
 
-  //const token = req.user.token;
+  // Use request IP as token
+  const token = requestIp.getClientIp (req);
 
 
   return next();

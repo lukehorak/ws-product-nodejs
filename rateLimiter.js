@@ -10,9 +10,10 @@ STEPS:
 const RateLimiter = (checkToken) => {
 
   return (function (req, res, next) {
+    
     const token = requestIp.getClientIp(req).split("f:")[1];
   
-    if (checkToken(token)){
+    if (!checkToken(token)){
       return res.status(403).json({"error": "Exceeded rate limit"})
     }
   

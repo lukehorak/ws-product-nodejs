@@ -1,8 +1,8 @@
 const express = require('express')
 const pg = require('pg')
-const checkToken = require('./interfaces').tempstore
 
-const RateLimiter = require('./rateLimiter')(checkToken);
+const interface = require('./interfaces').tempstore
+const RateLimiter = require('./rateLimiter')(interface);
 
 
 // dotenv for environment vars

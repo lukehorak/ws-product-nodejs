@@ -1,14 +1,20 @@
 const express = require('express')
 const pg = require('pg')
-const { rateLimiter } = require('./rateLimiter')
+const checkToken = require('./interfaces').tempstore
+
+const RateLimiter = require('./rateLimiter')(checkToken)
+
 
 // dotenv for environment vars
 require('dotenv').config()
+
 
 const app = express()
 // configs come from standard PostgreSQL env vars
 // https://www.postgresql.org/docs/9.6/static/libpq-envars.html
 const pool = new pg.Pool()
+
+app.use(RateLimiter);
 
 const queryHandler = (req, res, next) => {
   pool.query(req.sqlQuery).then((r) => {

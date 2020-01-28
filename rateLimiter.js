@@ -1,12 +1,26 @@
 const requestIp = require('request-ip');
 
-const rateLimiter = (req, res, next) => {
+/*
+STEPS:
+1. get token [CHECK]
+2. check datastore for token [IN PROGRESS]
+3. approve/deny based on criteria
+*/
 
-  // Use request IP as token
-  const token = requestIp.getClientIp (req);
+const RateLimiter = (checkToken) => {
 
+  return (function (req, res, next) {
+    const token = requestIp.getClientIp(req).split("f:")[1];
+  
+    if (checkToken(token)){
+      return res.status(403).json({"error": "Exceeded rate limit"})
+    }
+  
+    return next();
+  })
 
-  return next();
 }
 
-module.exports = { rateLimiter };
+
+
+module.exports = RateLimiter;

@@ -1,8 +1,10 @@
 const express = require('express')
 const pg = require('pg')
 
+// Rate Limiter module/temp in-memory data store (for demo purposes)
+const dataStore = {};
 const interface = require('./interfaces').tempstore
-const RateLimiter = require('./rateLimiter')(interface);
+const RateLimiter = require('./rateLimiter')(interface, dataStore);
 
 
 // dotenv for environment vars

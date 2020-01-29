@@ -3,7 +3,7 @@ const pg = require('pg')
 
 // Rate Limiter module/temp in-memory data store (for demo purposes)
 const dataStore = {};
-const interface = require('./interfaces').tempstore
+const interface = require('./interfaces')
 const RateLimiter = require('./rateLimiter')(interface, dataStore);
 
 

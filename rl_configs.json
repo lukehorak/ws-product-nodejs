@@ -1,0 +1,5 @@
+{
+  "interface": "tempstore",
+  "interval": 60000,
+  "limit": 5
+}

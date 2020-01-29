@@ -1,12 +1,17 @@
-module.exports = {
+const configs = require('./rl_configs.json')
+
+const interfaces = {
   tempstore: {
     read: (token, dataStore) => {
       return dataStore[token];
     },
     check: (token, dataStore) => {
       // TODO - actually build this part
-      if (Date.now() === dataStore[token].last_request){
-        return false;
+      const diff = Date.now() - dataStore[token].last_request;
+      if (diff < configs.interval){
+        if (dataStore[token].request_count >= configs.limit){
+          return false;
+        }
       }
       return true;
     },
@@ -23,3 +28,5 @@ module.exports = {
   
   }
 }
+
+module.exports = interfaces[configs["interface"]];
